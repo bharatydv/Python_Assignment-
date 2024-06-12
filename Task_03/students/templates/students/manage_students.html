@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Students</title>
+</head>
+<body>
+    <h1>Manage Students</h1>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <h2>Insert a new student</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" required><br>
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" required><br>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br>
+        <label for="grade">Grade:</label>
+        <input type="number" step="0.1" id="grade" name="grade" required><br>
+        <button type="submit" name="insert">Insert</button>
+    </form>
+
+    <h2>Update a student's grade</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" required><br>
+        <label for="new_grade">New Grade:</label>
+        <input type="number" step="0.1" id="new_grade" name="new_grade" required><br>
+        <button type="submit" name="update">Update</button>
+    </form>
+
+    <h2>Delete a student</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" required><br>
+        <button type="submit" name="delete">Delete</button>
+    </form>
+
+    <h2>Student List</h2>
+    <table border="1">
+        <tr>
+            <th>Student ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Grade</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.student_id }}</td>
+            <td>{{ student.first_name }}</td>
+            <td>{{ student.last_name }}</td>
+            <td>{{ student.age }}</td>
+            <td>{{ student.grade }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
